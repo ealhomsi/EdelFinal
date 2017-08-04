@@ -1,0 +1,40 @@
+#navbar-container {
+	color: black;
+}
+
+#navbar-container #menu-bar {
+	list-style-type: none;
+}
+
+#navbar-container #menu-bar {
+	margin-right: 1.5em;
+	float:right;
+}
+#navbar-container #menu-bar li {
+	float:left;
+	margin-top:0.7em;
+	display:inline-block;
+}
+
+#navbar-container #logo {
+	float:left;
+	font-size: 1.5em;
+}
+
+#navbar-container .selectedMenu {
+	color: #456990;
+}
+
+#navbar-container #last-menu {
+	margin-right: 6em;
+}
+
+#navbar-container .w3-button:hover {
+	text-decoration: none;
+}
+#navbar-container .action-button {
+	width:auto;
+	border-radius: 2em;
+	border: black solid 2px;
+	margin-right: 1.5em;
+}

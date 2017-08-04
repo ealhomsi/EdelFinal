@@ -1,0 +1,27 @@
+<!-- register.html -->
+<div id="id02" class="modal">
+    <form class="modal-content animate" action="../php/registerUser.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="../images/img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+        <br>
+        <div class="modal-container">
+
+            <label><b>User name</b></label>
+            <input type="text" placeholder="Enter username" name="userName" required>
+
+            <label><b>Email</b></label>
+            <input type="email" placeholder="Enter email" name="userEmail" required>
+
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter password" name="userPassword" required>
+
+            <button type="submit" style="background-color: #456990; border-radius: 2em;">Register</button>
+           
+        </div>
+        <div class="modal-container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>

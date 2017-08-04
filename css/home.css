@@ -1,0 +1,82 @@
+#splashScreen {
+	width: 100%;
+	height: 27em;
+	background-color: #2dd0c6;
+}
+
+.newStyle {
+	display: block;
+}
+
+#imgSplashScreen {
+	position: absolute;
+	width: 100%;
+	height: 27em;
+	opacity: 0.3;
+}
+
+
+#slogan {
+	color: white;
+	text-align: center;
+	display: block;
+	margin: auto 0;
+	width: 100%;
+	padding-top: 5.5em;
+	font-weight: bold;
+	opacity: 0.99;
+}
+
+#subSlogan {
+	color: white;
+	text-align: center;
+	display: block;
+	margin: auto 0;
+	width: 100%;
+	padding-top: 0.4em;
+	font-weight: bold;
+	opacity: 0.99;
+}
+
+.buttonsMenu {
+	background-color: white;
+	color: #2dd0c6;
+	border-radius: 2em;
+	margin-top: 1.3em;
+	margin-right: 1em;
+	position: absolute;
+	padding: 0.2em 0.7em;
+}
+
+.contentbar {
+	margin-top: 3em;
+	border-radius: 0.3em;
+}
+
+
+.downloadAppImages {
+	width: 7em;
+	opacity: 0.99;
+}
+.downloadApp {
+	padding-top: 1.5em;
+	display:inline-block;
+	text-align: center;
+	width: 100%;
+}
+#phoneInHand {
+	width: 100%;
+}
+
+
+.modal {
+	padding: 15em;
+}
+
+form {
+	padding: 1em;
+}
+
+form input {
+	padding: 0em 0.1em;
+}
