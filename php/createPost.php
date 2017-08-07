@@ -3,8 +3,12 @@
 session_start(); 
 include  "functions.php";
 
-if(!isset($_SESSION['userID'])) 
-    die("LOGIN / REGISTER FIRST!!!");
+if(!isset($_SESSION['userID'])) {
+    print("LOGIN / REGISTER FIRST!!!");
+    sleep(2);
+    header('Location: ' . 'https://localhost/new/index.php');
+    exit();
+}
 ?>
 
 <?php
@@ -25,11 +29,6 @@ function main() {
     }
     if(isset($_POST["postTags"])) {
     	$postTags = $_POST['postTags'];
-    }
- 
-    //error no login
-    if(!isset($_SESSION["userName"])){
-        die("please login or register first");
     }
 
 

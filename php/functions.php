@@ -62,7 +62,7 @@ function generateSalt() {
 	$numberOfDesiredBytes = 16;
 	$salt = random_bytes($numberOfDesiredBytes);
 	return $salt;
-	}
+}
 
 //function that hashes passwords
 function hashPassword($password, $salt) {
@@ -79,11 +79,10 @@ function verifyPassword($password, $hash, $salt) {
 //signing file contents
 function signFile($fileContent, $privKey) {
 	//compute signature
-	//openssl_sign($fileContent, $signature, $privKey);
+	openssl_sign($fileContent, $signature, $privKey);
 
-	//return $signature;
+	return $signature;
 
-	return $fileContent;
 }
 
 //getting something from database Users
@@ -264,10 +263,10 @@ function listChildrenPosts($id) {
 	$conn = new mysqli('localhost','boubou','boubou','edel') or die('Error connecting to MySQL server.');
 
 	// making the querry
-	$dbQuery = "SELECT post_id, post_type, post_date, user_id, post_rating, post_text FROM Posts INNER JOIN ChildrenPosts ON ChildrenPosts.child_post_id = Posts.post_id WHERE father_post_id='".mysqli_real_escape_string($conn,$id). "'";
+	$dbQuery = "SELECT post_id, post_type, post_date, user_id, post_rating, post_text FROM Posts INNER JOIN ChildrenPosts ON ChildrenPosts.child_post_id = Posts.post_id WHERE father_post_id='".mysqli_real_escape_string($conn,$id). "' ORDER BY Posts.post_rating DESC";
 
 	if($id == "null") {
-		$dbQuery = "SELECT post_id, post_type, post_date, user_id, post_rating, post_text FROM Posts INNER JOIN ChildrenPosts ON ChildrenPosts.child_post_id = Posts.post_id WHERE father_post_id is null";
+		$dbQuery = "SELECT post_id, post_type, post_date, user_id, post_rating, post_text FROM Posts INNER JOIN ChildrenPosts ON ChildrenPosts.child_post_id = Posts.post_id WHERE father_post_id is null ORDER BY Posts.post_rating DESC";
 	}
 	$result = $conn->query($dbQuery);
 	
@@ -361,7 +360,7 @@ function listPostsUser($id) {
 	$conn = new mysqli('localhost','boubou','boubou','edel') or die('Error connecting to MySQL server.');
 
 	// making the querry
-	$dbQuery = "SELECT * FROM Posts WHERE user_id='".mysqli_real_escape_string($conn,$id). "'";
+	$dbQuery = "SELECT * FROM Posts WHERE user_id='".mysqli_real_escape_string($conn,$id). "' ORDER BY Posts.post_rating DESC";
 	$result = $conn->query($dbQuery);
 
 	$row = $result->fetch_array();
@@ -450,7 +449,7 @@ function listOfTags($postID) {
 	$conn = new mysqli('localhost','boubou','boubou','edel') or die('Error connecting to MySQL server.');
 
 	// making the querry
-	$dbQuery = "SELECT * FROM TagPosts INNER JOIN Tags ON TagPosts.tag_id = Tags.tag_id WHERE post_id='".mysqli_real_escape_string($conn,$postID). "'";
+	$dbQuery = "SELECT * FROM TagPosts INNER JOIN Tags ON TagPosts.tag_id = Tags.tag_id WHERE post_id='".mysqli_real_escape_string($conn,$postID). "' ORDER BY Tags.tag_name";
 	$result = $conn->query($dbQuery);
 
 	if(!$result) {
@@ -482,7 +481,7 @@ function listOfPostsRelatedToATag($tagID) {
 	$conn = new mysqli('localhost','boubou','boubou','edel') or die('Error connecting to MySQL server.');
 
 	// making the querry
-	$dbQuery = "SELECT * FROM TagPosts INNER JOIN Posts ON TagPosts.post_id = Posts.post_id WHERE TagPosts.tag_id='".mysqli_real_escape_string($conn,$tagID). "'";
+	$dbQuery = "SELECT * FROM TagPosts INNER JOIN Posts ON TagPosts.post_id = Posts.post_id WHERE TagPosts.tag_id='".mysqli_real_escape_string($conn,$tagID). "' ORDER BY Posts.post_rating DESC";
 	$result = $conn->query($dbQuery);
 
 	if(!$result) {
@@ -513,7 +512,7 @@ function listOfAllTags() {
 	$conn = new mysqli('localhost','boubou','boubou','edel') or die('Error connecting to MySQL server.');
 
 	// making the querry
-	$dbQuery = "SELECT * FROM Tags";
+	$dbQuery = "SELECT * FROM Tags ORDER BY Tags.tag_name";
 	$result = $conn->query($dbQuery);
 
 	if(!$result) {
@@ -610,6 +609,27 @@ EOT;
 					foreach($documentsArray as $oneDocument) {
 							$documentName = $oneDocument[1];
 							$documentID = $oneDocument[0];
+							$documentType = preg_split("/\//", $oneDocument[2]);
+							if($documentType == "image") {
+								#insert modal
+								$result .= <<< EOT
+									<div class="imagePreview" >
+										<p id="myImg"> preview </p>
+
+										<!-- The Modal -->
+											<div id="myModal" class="modal">
+											  <!-- The Close Button -->
+											  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+											  <!-- Modal Content (The Image) -->
+											  <img class="modal-content" id="img01">
+
+											  <!-- Modal Caption (Image Text) -->
+											  <div id="caption"></div>
+											</div>
+									</div>
+EOT;
+							}
 
 							$result .='<a href="../php/download.php?id=' . $documentID .'"> <span class="glyphicon glyphicon-file"> </span>' . $documentName .'</a>';
 					}
@@ -783,6 +803,7 @@ function listDocumentsRelatedToAPost($postID) {
     while($row) {
     	$listing[$i][0] = $row['document_id'];
     	$listing[$i][1] = $row['document_name'];
+    	$listing[$i][2] = $row['document_type'];
     	$i++;
     	$row = $result->fetch_array();
     }

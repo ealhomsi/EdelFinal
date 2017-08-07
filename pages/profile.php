@@ -217,6 +217,11 @@ if(!isset($_SESSION['userID']))
         document.getElementById('id01').style.display='block';
     }
 
+    function hasClass(element, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    }
+
+    //add new box for upload
     function addNewUploadBox() {
         uploadArea.innerHTML = uploadArea.innerHTML + `
             <div>
@@ -249,16 +254,18 @@ if(!isset($_SESSION['userID']))
             label.style.color = "red";
 
             fileName = e.target.value.split( '\\' ).pop();
-            if( fileName )
+            if( fileName ) {
                 label.querySelector( 'span' ).innerHTML = fileName;
+            }
             else
                 label.innerHTML = labelVal;
         }
 
+
         //for the whole thing
         var arrayList = uploadArea.children;
         for(var count = 0; count < arrayList.length; count++) {
-            var input = arrayList[count];
+            input = arrayList[count];
             input.firstElementChild.firstElementChild.addEventListener('change', handler);
             input.firstElementChild.lastElementChild.addEventListener('click', close);
         }
