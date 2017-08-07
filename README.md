@@ -58,9 +58,6 @@ New TO DO:
 
 # what to do last week
 * rss feed
-* posting a question
-* reply
-* email as an answer
 * focus on the mobile app (application)
 * organization website side.
 
@@ -68,7 +65,6 @@ New TO DO:
 posting *****
 taging
 voting
-email an answer (notification system).] **** 
 
 priority
 protect private key - verification

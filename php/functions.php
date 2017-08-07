@@ -1,6 +1,35 @@
 <?php
 // this is a library of common functions
 
+//function send email to a user 
+function sendmail($to, $replyer, $msg, $date) {
+	$subject = "Your post got a reply from $replyer";
+
+	$message = <<<EOT
+		<html>
+			<head>
+				<title>HTML email</title>
+			</head>
+			<body>
+				<h4> ${msg} </h4>
+				<p> posted by ${replyer} on ${date} </p>
+			</body>
+		</html>
+EOT;
+	// Always set content-type when sending HTML email
+	$headers = "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+	// More headers
+	$headers .= 'From: <noreply EDEL>' . "\r\n";
+
+	$result =  mail($to,$subject,$message,$headers);
+	if(!$result) {
+		die("sdfa");
+	}
+}
+
+
 //function that generates private and public keys
 function createPPKeys() {
 	$config = array(
