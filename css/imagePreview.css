@@ -7,7 +7,7 @@
 .imagePreview #myImg:hover {opacity: 0.7;}
 
 /* The Modal (background) */
-.imagePreview .modal {
+.imagePreview .modalImagePreview {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -22,10 +22,10 @@
 }
 
 /* Modal Content (image) */
-.imagePreview .modal-content {
+.imagePreview .modal-content-image-preview {
     margin: auto;
     display: block;
-    width: 80%;
+    width: 30%;
     max-width: 700px;
 }
 
@@ -42,19 +42,19 @@
 }
 
 /* Add Animation */
-.imagePreview .modal-content, #caption {    
+.imagePreview .modal-content-image-preview, #caption {    
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
     animation-duration: 0.6s;
 }
 
-.imagePreview @-webkit-keyframes zoom {
+@-webkit-keyframes zoom {
     from {-webkit-transform:scale(0)} 
     to {-webkit-transform:scale(1)}
 }
 
-.imagePreview @keyframes zoom {
+@keyframes zoom {
     from {transform:scale(0)} 
     to {transform:scale(1)}
 }
@@ -64,6 +64,9 @@
     position: absolute;
     top: 15px;
     right: 35px;
+    color:white;
+    opacity: 1;
+    z-index: 100;
     color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;
@@ -77,9 +80,17 @@
     cursor: pointer;
 }
 
+.imagePreview .downloadButton {
+    background-color: red;
+    border-radius: 2em;
+    color: #eeeeee;
+    text-align:center;
+    padding:0.1em 0.5em; 
+}
+
 /* 100% Image Width on Smaller Screens */
-.imagePreview @media only screen and (max-width: 700px){
-    .modal-content {
+@media only screen and (max-width: 700px){
+    .imagePreview .modal-content-image-preview {
         width: 100%;
     }
 }

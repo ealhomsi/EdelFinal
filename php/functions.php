@@ -609,30 +609,35 @@ EOT;
 					foreach($documentsArray as $oneDocument) {
 							$documentName = $oneDocument[1];
 							$documentID = $oneDocument[0];
-							$documentType = preg_split("/\//", $oneDocument[2]);
+							$masterType = $oneDocument[2];
+							$documentType = preg_split("/\//", $masterType)[0];
+
+							//switch based on document type
 							if($documentType == "image") {
 								#insert modal
 								$result .= <<< EOT
-									<div class="imagePreview" >
-										<p id="myImg"> preview </p>
+									<div class="imagePreview" style="display:inline;">
+										<a  id="myImg${documentID}" onclick="document.getElementById('myModal${documentID}').style.display='block'"> <span class="glyphicon glyphicon-zoom-in"> </span>  ${documentName} </a>
 
 										<!-- The Modal -->
-											<div id="myModal" class="modal">
+											<div id="myModal${documentID}" class="modalImagePreview">
 											  <!-- The Close Button -->
-											  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+											  <span class="close" onclick="document.getElementById('myModal${documentID}').style.display='none'">&times;</span>
 
 											  <!-- Modal Content (The Image) -->
-											  <img class="modal-content" id="img01">
+											  <img src="../uploads/${documentName}" class="modal-content-image-preview img-rounded" id="img${documentID}">
 
 											  <!-- Modal Caption (Image Text) -->
-											  <div id="caption"></div>
+											  <div style="text-align:center;">
+											  <a class="downloadButton" id="caption${documentID}" href="../php/download.php?id=${documentID}"> download &mapstodown;: ${documentName} </a> </div>
 											</div>
 									</div>
 EOT;
+							}else {
+								$result .='<a href="../php/download.php?id=' . $documentID .'"> <span class="glyphicon glyphicon-file"> </span>' . $documentName .'</a>';
 							}
-
-							$result .='<a href="../php/download.php?id=' . $documentID .'"> <span class="glyphicon glyphicon-file"> </span>' . $documentName .'</a>';
 					}
+
 $result .= <<< EOT
 					</div>
 				</div>
@@ -788,7 +793,7 @@ function listDocumentsRelatedToAPost($postID) {
 	$conn = new mysqli('localhost','boubou','boubou','edel') or die('Error connecting to MySQL server.');
 
 	// making the querry
-	$dbQuery = "SELECT document_id, document_name FROM Posts INNER JOIN Documents ON Documents.post_id = Posts.post_id WHERE Posts.post_id='".mysqli_real_escape_string($conn,$postID). "'";
+	$dbQuery = "SELECT document_id, document_name, document_type FROM Posts INNER JOIN Documents ON Documents.post_id = Posts.post_id WHERE Posts.post_id='".mysqli_real_escape_string($conn,$postID). "'";
 
 	$result = $conn->query($dbQuery);
 
