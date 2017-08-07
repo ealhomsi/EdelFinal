@@ -61,7 +61,7 @@
 
 /* The Close Button */
 .imagePreview .close {
-    position: absolute;
+    position: fixed;
     top: 15px;
     right: 35px;
     color:white;

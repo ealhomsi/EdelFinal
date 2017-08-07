@@ -620,17 +620,18 @@ EOT;
 										<a  id="myImg${documentID}" onclick="document.getElementById('myModal${documentID}').style.display='block'"> <span class="glyphicon glyphicon-zoom-in"> </span>  ${documentName} </a>
 
 										<!-- The Modal -->
-											<div id="myModal${documentID}" class="modalImagePreview">
-											  <!-- The Close Button -->
+											<div id="myModal${documentID}" class="modalImagePreview" onclick="this.style.display='none'";>
+
 											  <span class="close" onclick="document.getElementById('myModal${documentID}').style.display='none'">&times;</span>
 
 											  <!-- Modal Content (The Image) -->
-											  <img src="../uploads/${documentName}" class="modal-content-image-preview img-rounded" id="img${documentID}">
+											  <img style="z-index:100;" src="../uploads/${documentName}" class="modal-content-image-preview img-rounded" id="img${documentID}" onclick="event.stopPropagation(); return false;">
 
 											  <!-- Modal Caption (Image Text) -->
 											  <div style="text-align:center;">
 											  <a class="downloadButton" id="caption${documentID}" href="../php/download.php?id=${documentID}"> download &mapstodown;: ${documentName} </a> </div>
 											</div>
+
 									</div>
 EOT;
 							}else {

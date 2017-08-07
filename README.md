@@ -1,8 +1,12 @@
 # edel
 The website of edel side
 
+# how to configure
+    * run the mysql server if it is from scratch
+    * run the gulp server for the pdfjs
+        gulp server
+
 This website should include the stack overflow funcitonality
-I
 Functional Website:
 
 * official orientation
