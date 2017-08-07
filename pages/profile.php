@@ -20,7 +20,6 @@ if(!isset($_SESSION['userID']))
             background-color: #2dd0c6;
             color: white;
             margin-left: 3em;
-            border-radius: 2em;
             border-color: white;
         }
 

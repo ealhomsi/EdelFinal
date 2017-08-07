@@ -42,21 +42,6 @@ c) accounts
 d) login/ signup
 e) storing database issues.
 
-# Rachel feed back
-fill the website
-feal like used
-
-1) tags addinag
-2( tags auto
-3) make round edges ecslussvie 
-4) layout for voting number and sys
-5) bug on uploading
-6) preview be4  download
-7) filter uploads
-8) categories
-phone compt
-
-
 
 
 
@@ -88,4 +73,3 @@ email an answer (notification system).] ****
 priority
 protect private key - verification
 log changes
-elias
