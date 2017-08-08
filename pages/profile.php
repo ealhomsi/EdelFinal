@@ -13,8 +13,14 @@ if(!isset($_SESSION['userID']))
     <title>Your Profile <?php echo $_SESSION['userName'] ?> </title>
     <!-- all required includes -->
     <?php include '../template/includes-non-index.html' ?>
-
+    
+    <!-- in document styling --> 
     <style>
+        #ui-id-1 {
+            display: inline;
+            z-index: 3000;
+            opacity: 1;
+        }
         #new-post-btn {
             cursor: hand;
             background-color: #2dd0c6;
@@ -156,13 +162,40 @@ if(!isset($_SESSION['userID']))
         <form class="modal-content animate" action="../php/createPost.php" method="post" enctype="multipart/form-data">
             <div class="modal-container">
                 <label><b>Post Type</b></label>
-                <input type="text" placeholder="Describe the new subEdel" name="postType" required>
+                <input type="text" placeholder="Describe the new subEdel" name="postType" class="tagit ui-widget ui-widget-content ui-corner-all" style="margin: 0; width: 100%" required>
 
                 <label><b>Post Text</b></label>
-                <input type="text" style="height:9em;" placeholder="text 255 chars left" name="postText" required>
+                <textarea style="height:3em; margin: 0; width:100%; padding:1em;" placeholder="   text 255 chars left" name="postText" class="tagit ui-widget ui-widget-content ui-corner-all" required> </textarea>
 
-				<label><b> Tags: seperate tags by a ; "semi colon" </b> </label>
-				<input type="text" placeholder="Tags: seperate tags by a ; semi colon" name="postTags" required>
+				<label><b> Tags: seperate tags by a space </b> </label>
+				<input type="text" style="display:none;" placeholder="Tags: seperate tags by a ; semi colon" name="postTags" id="tagsInputArea" required>
+
+                <!-- script for tags -->
+                <?php
+                 $toEcho = "";
+                 $toEcho .= <<< EOT
+                 <script>
+                   $(function() {
+                           var availableTagss = [
+EOT;
+                                $tagsArray = listOfAllTags();
+                                foreach($tagsArray as $oneTag) {
+                                    $toEcho .= '"' . substr($oneTag[0], 1). '" ,';
+                                }
+                                $toEcho .= '"empty"';
+                $toEcho .= <<< EOT
+                        ];
+                        $("#tagsInputArea").tagit({
+                            availableTags: availableTagss,
+                            autocomplete: {delay: 0, minLength: 2} 
+                        });
+                    });
+                 </script>
+EOT;
+                echo $toEcho;
+                ?>
+                <!-- end script for tags -->
+                
                 <br>
                 <a onclick="addNewUploadBox()" class="hover-non-decoration"> Attach + </a>
                 <br>
@@ -203,11 +236,16 @@ if(!isset($_SESSION['userID']))
 </footer>
 </body>
 
+<script src="../node_modules/autosize/dist/autosize.js"></script>
+
 <script>
     //registering handlers
     registerBody();
     var uploadArea = document.getElementById("upload-area");
     var arrayList = [];
+
+
+    autosize(document.querySelectorAll('textarea'));
     //fixing colors
     colorBlack();
 

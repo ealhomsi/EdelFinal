@@ -74,7 +74,7 @@ function main() {
     $conn->close();
 
     //getting a list of tags
-    $tags = preg_split("/\s*;\s*/", $postTags);
+    $tags = preg_split("/\s*,\s*/", $postTags);
     $listOfTagsIDs = array();
     $i = 0; 
 
