@@ -73,3 +73,7 @@ voting
 priority
 protect private key - verification
 log changes
+
+
+todo
+please work documents web/viewer.html?file=somethingencoded in url encoding
