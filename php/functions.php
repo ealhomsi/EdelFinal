@@ -610,10 +610,11 @@ EOT;
 							$documentName = $oneDocument[1];
 							$documentID = $oneDocument[0];
 							$masterType = $oneDocument[2];
-							$documentType = preg_split("/\//", $masterType)[0];
+							$firstSlash = preg_split("/\//", $masterType)[0];
+							$secondSlash= preg_split("/\//", $masterType)[1];
 
 							//switch based on document type
-							if($documentType == "image") {
+							if($firstSlash == "image") {
 								#insert modal
 								$result .= <<< EOT
 									<div class="imagePreview" style="display:inline;">
@@ -634,7 +635,12 @@ EOT;
 
 									</div>
 EOT;
-							}else {
+							}else if($secondSlash == "pdf") {
+								#give them a link to the viewerhtml thing
+								$urlName = rawurlencode($documentName);
+								$result .='<a href="../uploads/'. $urlName .'" target="_blank"> <span class="glyphicon glyphicon-zoom-in"> </span>' . $documentName .'</a>';
+							}
+							else {
 								$result .='<a href="../php/download.php?id=' . $documentID .'"> <span class="glyphicon glyphicon-file"> </span>' . $documentName .'</a>';
 							}
 					}
